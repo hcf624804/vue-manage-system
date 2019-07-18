@@ -1,15 +1,15 @@
 <template>
   <div class="homeBox">
   <el-container class="container" direction="vertical" style="height: 100%">
-    <el-header height="5%">
+    <el-header :style="header">
       <web-header></web-header>
     </el-header>
    <el-container direction="horizontal" style="height: 90%">
-     <el-aside width="11%" style="background-color: #2c323e;border: #2c3e50">
+     <el-aside :style="aside" style="background-color: #2c323e;border: #2c3e50">
          <web-menu></web-menu>
      </el-aside>
      <el-container style="background-color: #f5f7fa">
-        <el-main>
+        <el-main :style="elmain">
           <el-tabs v-model="activeRoute"
                    class="main-tab"
                    type="card"
@@ -26,8 +26,10 @@
 
             </el-tab-pane>
           </el-tabs>
-
-            <router-view :key="this.$store.state.activeDate"></router-view>
+          <el-tooltip class="item" effect="light" :content="quanpin_content" placement="bottom">
+            <el-button icon="el-icon-full-screen" round class="quanpin" v-on:click="quanpinClick" size="mini"></el-button>
+          </el-tooltip>
+          <router-view :key="this.$store.state.activeDate"></router-view>
 
         </el-main>
      </el-container>
@@ -41,6 +43,21 @@
   import menu from '@/components/menu.vue';
 
 export default {
+  data() {
+    return {
+      header:{
+        height:''
+      },
+      aside:{
+        width:''
+      },
+      elmain:{
+        padding:'10px;'
+      },
+      quanpin:false,
+      quanpin_content:'全屏',
+    }
+  },
   name: 'App',
   components: {
     "web-header": header,
@@ -67,6 +84,21 @@ export default {
         } else {
           this.$router.push({path: '/'});
         }
+      }
+    },
+    quanpinClick(){
+      if(this.quanpin){
+        this.header.height = (window.innerHeight-70)*0.05+'px';
+        this.aside.width = window.innerWidth*0.12+'px';
+        this.quanpin=false;
+        this.elmain.padding=10+'px';
+        this.quanpin_content='全屏';
+      }else{
+        this.header.height = 0+'px';
+        this.aside.width = 0+'px';
+        this.quanpin=true;
+        this.elmain.padding=0+'px';
+        this.quanpin_content='取消全屏';
       }
     }
   },
@@ -102,6 +134,10 @@ export default {
       localStorage.setItem('currentRouteName', to.name);
       localStorage.setItem('currentRoutePath', to.path);
     }
+  },
+  created () {
+    this.header.height = (window.innerHeight-70)*0.05+'px';
+    this.aside.width = window.innerWidth*0.12+'px';
   }
 }
 </script>
@@ -131,7 +167,7 @@ body,
   color: white;
 }
   .el-main{
-    padding: 10px;
+    position: relative;
   }
   .el-footer{
     padding: 0px;
@@ -139,4 +175,10 @@ body,
 .el-scrollbar__wrap{
   overflow-x: hidden;
 }
+  .quanpin{
+    position: absolute;
+    top: 10px;
+    right: 20px;
+  }
+
 </style>
