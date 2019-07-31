@@ -1,4 +1,4 @@
-const logoName = '风毒翩翩'
+const logoName = '后台管理系统'
 const menuList = [
   {
     name: '我的信息',

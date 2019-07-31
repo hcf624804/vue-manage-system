@@ -13,6 +13,17 @@ Vue.use(ElementUI)
 Vue.use(Vuex)
 const store = new Vuex.Store(StoreOption);
 
+router.beforeEach((to, from, next) => {
+  const username = localStorage.getItem('username');
+  console.log(username)
+  if (username == null && to.path !== '/login') {
+    console.log("去登陆页面")
+    next('/login');
+  } else {
+      next();
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

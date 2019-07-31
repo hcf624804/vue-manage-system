@@ -12,10 +12,11 @@
     background-color="#2c323e"
     text-color="#afb8c1"
     active-text-color="#2fa8fd"
-    style="border-right-width: 0;">
+    style="border-right-width: 0;"
+    :collapse="collapse">
     <el-menu-item index="/">
       <i class="el-icon-location"></i>
-      <span slot="title">总览</span>
+      <span slot="title">系统首页</span>
     </el-menu-item>
     <el-submenu v-for="item in menu" :index="item.id" :key="item.id">
       <template slot="title">
@@ -34,12 +35,14 @@
 
 <script>
   import global from '@/global_data.js'
+  import Bus from './bus.js'
 
   export default {
     name: 'menu',
     data() {
       return{
-        menu:global.menuList
+        menu:global.menuList,
+        collapse:false
       }
     },
     mounted() {
@@ -55,6 +58,11 @@
         this.$store.commit("set_active_index",routePath)
         this.$router.push('/');
       }
+      let self =this
+      Bus.$on('collapseMenu',(e) => {
+        self.collapse = e
+        console.log("传过来的数据是："+e)
+      })
     },
     methods: {
       handleOpen(key, keyPath) {

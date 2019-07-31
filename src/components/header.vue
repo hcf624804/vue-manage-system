@@ -1,7 +1,7 @@
 <template>
     <el-row :gutter="0" class="header">
       <el-col :span="18" style="height: 100%;">
-        <div class="logo">{{logoName}}</div>
+        <div class="logo"><i :class="collapseMenuIcon" v-on:click="collapseMenuClick"></i>{{logoName}}</div>
       </el-col>
       <el-col :span="3" style="height: 100%;">
         <div class="guanzhu">
@@ -42,13 +42,30 @@
 
 <script>
   import global from '@/global_data.js'
+  import Bus from './bus.js'
+
   export default {
     name: 'header',
     data() {
       return {
         logoName: global.logoName,
         logoSrc: require("../assets/logo.png"),
-        radio:'中文'
+        radio:'中文',
+        collapseMenu:false,
+        collapseMenuIcon:'el-icon-s-fold'
+      }
+    },
+    methods:{
+      collapseMenuClick(){
+        if(!this.collapseMenu){
+          this.collapseMenuIcon='el-icon-s-unfold'
+          this.collapseMenu=true
+          Bus.$emit('collapseMenu',true)
+        }else{
+          this.collapseMenuIcon='el-icon-s-fold'
+          this.collapseMenu=false
+          Bus.$emit('collapseMenu',false)
+        }
       }
     }
   }
@@ -68,6 +85,7 @@
     display: -webkit-box;
     -webkit-box-pack:center;
     -webkit-box-orient:vertical;
+    font-size: 30px;
   }
   .guanzhu{
     float: right;
