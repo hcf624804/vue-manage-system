@@ -6,24 +6,19 @@
 
         </el-header>
         <el-main>
-          <el-row :gutter="20">
-            <el-col :span="12"><div class="grid-content bg-purple">登录名：</div></el-col>
-            <el-col :span="12"><div class="grid-content bg-purple">
-              <el-input
-              placeholder="请输入登录名"
-              v-model="username"
-              clearable />
-            </div></el-col>
-          </el-row>
-          <el-row :gutter="20">
-            <el-col :span="12"><div class="grid-content bg-purple">登录密码：</div></el-col>
-            <el-col :span="12"><div class="grid-content bg-purple">
-              <el-input
-                placeholder="请输入登录密码"
-                v-model="password"
-                show-password />
-            </div></el-col>
-          </el-row>
+          <el-form :model="login" :rules="loginRules" ref="login" label-width="0px">
+            <el-form-item prop="username">
+              <el-input v-model="login.username" placeholder="username">
+                <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
+              </el-input>
+            </el-form-item>
+            <el-form-item prop="password">
+              <el-input type="password" placeholder="password" v-model="login.password" @keyup.enter.native="loginSubmit('login')">
+                <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
+              </el-input>
+            </el-form-item>
+              <el-button type="primary" @click="loginSubmit('login')">登录</el-button>
+          </el-form>
         </el-main>
         <el-footer>
 
@@ -38,8 +33,31 @@
     name: 'login',
     data(){
       return{
-        username:'admin',
-        password:'123456'
+        login: {
+          username: 'admin',
+          password: '123456'
+        },
+        loginRules:{
+          username: [
+            { required: true, message: '请输入用户名', trigger: 'blur' }
+          ],
+          password: [
+            { required: true, message: '请输入密码', trigger: 'blur' }
+          ]
+        }
+      }
+    },
+    methods: {
+      loginSubmit(form){
+        this.$refs[form].validate((valid) => {
+          if (valid) {
+            localStorage.setItem('username',this.login.username);
+            this.$router.push('/index');
+          } else {
+            this.$message.error('请输入登录名和登陆密码');
+            return false;
+          }
+        });
       }
     }
   }

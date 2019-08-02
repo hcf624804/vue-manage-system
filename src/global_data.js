@@ -3,6 +3,7 @@ const menuList = [
   {
     name: '我的信息',
     id: '40000',
+    icon: 'el-icon-s-custom',
     sub: [
       {
         id:'40001',
@@ -21,6 +22,7 @@ const menuList = [
   {
     name:'订单信息',
     id:'50000',
+    icon:'el-icon-s-data',
     sub:[
       {
         id: '50001',

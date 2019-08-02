@@ -30,7 +30,6 @@
               <el-button icon="el-icon-full-screen" round class="quanpin" v-on:click="quanpinClick" size="mini"></el-button>
             </el-tooltip>
             <router-view :key="this.$store.state.activeDate"></router-view>
-
           </el-main>
         </el-container>
       </el-container>
@@ -86,7 +85,7 @@
       },
       tabRemove (targetName) {
         // 首页不可删除
-        if(targetName == '/') {
+        if(targetName == '/index') {
           return;
         }
         this.$store.commit('delete_tabs', targetName);
@@ -96,7 +95,7 @@
             this.$store.commit('set_active_index', this.options[this.options.length-1].route);
             this.$router.push({path: this.activeRoute});
           } else {
-            this.$router.push({path: '/'});
+            this.$router.push({path: '/index'});
           }
         }
       },
@@ -161,7 +160,6 @@
 </script>
 
 <style>
-
   html,
   body,
   #app,
@@ -187,6 +185,7 @@
   }
   .el-main{
     position: relative;
+    padding: 10px;
   }
   .el-footer{
     padding: 0px;

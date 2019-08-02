@@ -7,10 +7,10 @@
         <div class="guanzhu">
         <el-dropdown placement="bottom">
           <span class="el-dropdown-link">
-            关注我们<i class="el-icon-arrow-down el-icon--right"></i>
+            支持作者<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item><img :src="logoSrc"></el-dropdown-item>
+            <el-dropdown-item><img :src="logoSrc" style="width: 250px;"></el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
         </div>
@@ -22,9 +22,8 @@
             我的<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>身份信息</el-dropdown-item>
-            <el-dropdown-item>认证信息</el-dropdown-item>
-            <el-dropdown-item>订单信息</el-dropdown-item>
+            <el-dropdown-item>退出登录</el-dropdown-item>
+            <el-dropdown-item v-on:click="gotoMessage">我的消息</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
         </div>
@@ -49,10 +48,11 @@
     data() {
       return {
         logoName: global.logoName,
-        logoSrc: require("../assets/logo.png"),
+        logoSrc: require("../assets/Alipay.png"),
         radio:'中文',
         collapseMenu:false,
-        collapseMenuIcon:'el-icon-s-fold'
+        collapseMenuIcon:'el-icon-s-fold',
+        circleUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
       }
     },
     methods:{

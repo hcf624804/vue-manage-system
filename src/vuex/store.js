@@ -1,7 +1,7 @@
 const options = {
   state: {
     options:[],
-    activeRoute: '/home',
+    activeRoute: '/index',
     activeRouteName: '总览',
     activeDate: '',
     asider_width:'200px'
@@ -9,6 +9,7 @@ const options = {
   mutations: {
     set_active_index(state, index) {
       this.state.activeRoute = index
+      this.state.activeDate = index
     },
     add_tabs (state, data) {
       this.state.options.push(data);
