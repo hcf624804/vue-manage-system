@@ -12,6 +12,13 @@ const options = {
       this.state.activeDate = index
     },
     add_tabs (state, data) {
+      console.log(data);
+      let options = this.state.options;
+      for(let i in options){
+        if(data.route == options[i].route){
+          return;
+        }
+      }
       this.state.options.push(data);
     },
     delete_tabs (state, route) {
