@@ -4,7 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 const home = () => import(/* webpackChunkName: "chunkname1" */ '@/components/home.vue')
 const index = () => import(/* webpackChunkName: "chunkname1" */ '@/pages/index.vue')
-const password = () => import(/* webpackChunkName: "chunkname1" */ '@/pages/password.vue')
+const message = () => import(/* webpackChunkName: "chunkname1" */ '@/pages/message.vue')
 const identify = () => import(/* webpackChunkName: "chunkname1" */ '@/pages/identify.vue')
 const order = () => import(/* webpackChunkName: "chunkname1" */ '@/pages/order.vue')
 const wallet = () => import(/* webpackChunkName: "chunkname1" */ '@/pages/wallet.vue')
@@ -23,9 +23,9 @@ export default new Router({
           component: index
         },
         {
-          path: '/password',
-          name: '密码修改',
-          component: password
+          path: '/message',
+          name: '我的消息',
+          component: message
         },
         {
           path: '/identify',

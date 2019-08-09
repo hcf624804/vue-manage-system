@@ -23,7 +23,9 @@
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>退出登录</el-dropdown-item>
-            <el-dropdown-item v-on:click="gotoMessage">我的消息</el-dropdown-item>
+            <el-badge :value="messageCount" :max="99" class="item">
+            <el-dropdown-item @click.native="gotoMessage">我的消息</el-dropdown-item>
+            </el-badge>
           </el-dropdown-menu>
         </el-dropdown>
         </div>
@@ -52,7 +54,7 @@
         radio:'中文',
         collapseMenu:false,
         collapseMenuIcon:'el-icon-s-fold',
-        circleUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+        messageCount:5
       }
     },
     methods:{
@@ -66,6 +68,12 @@
           this.collapseMenu=false
           Bus.$emit('collapseMenu',false)
         }
+      },
+      gotoMessage(){
+        localStorage.setItem('currentRoutePath', '/message');
+        this.$store.commit("add_tabs",{route:'/message',name:'我的消息'})
+        this.$store.commit("set_active_index",'/message')
+        this.$router.push('/message');
       }
     }
   }
