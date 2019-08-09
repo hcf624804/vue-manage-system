@@ -41,6 +41,7 @@
   import header from '@/components/header.vue';
   import menu from '@/components/menu.vue';
   import Bus from '@/components/bus.js';
+  import global from '@/global_data.js'
 
   export default {
     data() {
@@ -151,10 +152,6 @@
         localStorage.setItem('currentRouteName', to.name);
         localStorage.setItem('currentRoutePath', to.path);
       }
-    },
-    created () {
-      this.header.height = (window.innerHeight-70)*0.05+'px';
-      this.aside.width = window.innerWidth*0.12+'px';
     }
   }
 </script>

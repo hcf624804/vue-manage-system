@@ -8,7 +8,7 @@
         <el-collapse v-model="activeNames" @change="handleChange" class="message_list">
           <el-collapse-item :key="item.id" v-for="item in message" :name="item.id">
             <template slot="title">
-              {{item.title}}<div class="hongdian" v-if="item.wd"></div>
+              {{item.title}}<div class="hongdian" v-if="item.wd == 0"></div>
             </template>
             <div>{{item.content}}</div>
             <div style="font-size: 10px;margin-top: 5px;">——{{item.comefrom}}<div style="float: right">{{item.date}}</div></div>
@@ -20,6 +20,8 @@
 
 <script>
   import global from '@/global_data.js'
+  import Bus from '@/components/bus.js'
+
   export default {
     name: 'message',
     data() {
@@ -39,19 +41,34 @@
           for(let j in message){
             if(val[i] == message[j].id){
               console.log(message[j]);
-              message[j].wd = false;
+              message[j].wd = 1;
             }
           }
         }
         console.log(message);
+        global.setMessage(message);
+        let messageCount = getWdMessageCount(message);
+        Bus.$emit('messageCount',messageCount)
       },
       allYd(){
         let message = this.message;
         for(let j in message){
           message[j].wd = false;
         }
+        global.setMessage(message);
+        let messageCount = getWdMessageCount(message);
+        Bus.$emit('messageCount',messageCount)
       }
     }
+  }
+  function getWdMessageCount (message) {
+    let count = 0;
+    for(let i in message){
+      if(message[i].wd == 0){
+        count ++;
+      }
+    }
+    return count;
   }
 </script>
 

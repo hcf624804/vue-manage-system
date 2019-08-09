@@ -54,7 +54,7 @@
         radio:'中文',
         collapseMenu:false,
         collapseMenuIcon:'el-icon-s-fold',
-        messageCount:5
+        messageCount:0
       }
     },
     methods:{
@@ -75,6 +75,23 @@
         this.$store.commit("set_active_index",'/message')
         this.$router.push('/message');
       }
+    },
+    created () {
+      let message = global.message;
+      let count = 0;
+      for(let i in message){
+        if(message[i].wd == 0){
+          count ++;
+        }
+      }
+      this.messageCount = count;
+    },
+    mounted() {
+      let self =this
+      Bus.$on('messageCount',(e) => {
+        self.messageCount = e
+        console.log("传过来的数据是："+e)
+      })
     }
   }
 </script>
